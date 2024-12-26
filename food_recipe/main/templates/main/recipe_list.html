@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% csrf_token %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Recipes</h2>
+        <ul class="list-group">
+            {% for recipe in recipes reversed %}
+            <li class="list-group-item">
+                <div class="row">  <!-- Added: Start of Bootstrap row for layout -->
+                    <div class="col-md-6">  <!-- Added: First column for recipe details -->
+                        <h3>{{ recipe.title }}</h3>
+                        <img src="{{ recipe.image }}" class="img-fluid mb-3" alt="{{ recipe.title }}">
+                        <div class="d-flex gap-2">
+                            
+                            <button class="btn btn-outline-danger toggle-favorite" 
+                                    data-recipe-id="{{ recipe.id }}">
+                                {% if recipe in user.userprofile.favorite_recipes.all %}
+                                    Remove from Favorites
+                                {% else %}
+                                    Add to Favorites
+                                {% endif %}
+                            </button>
+                        </div>
+                    </div>  <!-- Added: End of first column -->
+                    <div class="col-md-6">  <!-- Added: Second column for nutrition information -->
+                        <h4>Nutrition Information:</h4>
+                        <ul>
+                            {% for nutrient in recipe.nutrition %}
+                            <li>{{ nutrient.name }}: {{ nutrient.amount }} {{ nutrient.unit }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>  <!-- Added: End of second column -->
+                </div>  <!-- Added: End of Bootstrap row -->
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% csrf_token %}
+{% block extra_js %}
+<script src="/static/js/toggle_favorite.js"></script>
+{% endblock %}
+{% endblock %}

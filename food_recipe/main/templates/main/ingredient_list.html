@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Edit/Add Ingredients</h2>
+        <div class="d-flex">
+            {% if uploaded_image %}
+            <div class="mb-3 me-3">
+                <img src="data:image/jpeg;base64,{{ uploaded_image }}" class="img-fluid" alt="Uploaded Image" style="width: 100%; max-width: 300px;">
+            </div>
+            {% endif %}
+            <div>
+                <form method="post" action="{% url 'search_recipes' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="ingredients" class="form-label">Detected Ingredients</label>
+                        {{ form.ingredients }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search Recipes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

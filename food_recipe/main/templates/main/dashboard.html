@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2 class="card-title">Dashboard</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Recent Recipes</h3>
+                <ul class="list-group">
+                    {% for recipe in history %}
+                    <li class="list-group-item">
+                        <h4>{{ recipe.title }}</h4>
+                        <img src="{{ recipe.image }}" class="img-fluid mb-3" alt="{{ recipe.title }}">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-info mb-3">View Recipe</a>
+                            <button class="btn btn-outline-danger mb-3 toggle-favorite" data-recipe-id="{{ recipe.id }}">
+                                {% if recipe in favorites %}
+                                    Remove from Favorites
+                                {% else %}
+                                    Add to Favorites
+                                {% endif %}
+                            </button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>Favorite Recipes</h3>
+                <ul class="list-group">
+                    {% for recipe in favorites %}
+                    <li class="list-group-item">
+                        <h4>{{ recipe.title }}</h4>
+                        <img src="{{ recipe.image }}" class="img-fluid mb-3" alt="{{ recipe.title }}">
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-info mb-3">View Recipe</a>
+                            <button class="btn btn-outline-danger mb-3 toggle-favorite" data-recipe-id="{{ recipe.id }}">
+                                {% if recipe in favorites %}
+                                    Remove from Favorites
+                                {% else %}
+                                    Add to Favorites
+                                {% endif %}
+                            </button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="/static/js/toggle_favorite.js"></script>
+{% endblock %}
+
+{% endblock %}
