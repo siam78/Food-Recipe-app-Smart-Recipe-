@@ -126,6 +126,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AWS_ACCESS_KEY_ID = 'Your AWS access key ID'
 AWS_SECRET_ACCESS_KEY = 'Your AWS secret access key'
-AWS_REGION = 'us-east-1'
+AWS_REGION = 'Your region'
 
 SPOONACULAR_API_KEY = 'Your API key'
